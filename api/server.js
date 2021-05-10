@@ -1,0 +1,33 @@
+const jsonServer = require('json-server');
+const path = require('path')
+const server = jsonServer.create();
+const router = jsonServer.router(path.join(__dirname, 'db.json'))
+const middlewares = jsonServer.defaults();
+
+server.use(middlewares);
+
+server.use(jsonServer.bodyParser);
+
+server.post('/users', (req, res, next) => {
+    if (req.method === 'POST') {
+        const errors = [];
+        const userData = req.body || {};
+        const fields = ['firstName', 'lastName', 'email'];
+        fields.forEach(field => {
+            if (!userData[field]) {
+                errors.push({field, code: 'REQUIRED', description: 'pole jest wymagane'});
+            }
+        });
+        if (errors.length > 0) {
+            res.status(400).jsonp({errors});
+        } else {
+            next();
+        }
+    }
+});
+
+// Use default router
+server.use(router);
+server.listen(3000, () => {
+    console.log('JSON Server is running');
+});

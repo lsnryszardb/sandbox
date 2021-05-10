@@ -1,0 +1,57 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Keanu",
+      "lastName": "Reeves",
+      "email": "keanur@lsn.io"
+    },
+    {
+      "id": 2,
+      "firstName": "Bruce",
+      "lastName": "Willis",
+      "email": "brucew@lsn.io"
+    },
+    {
+      "firstName": "Nicholas",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "createdAt": 1619769857360,
+      "id": 3
+    },
+    {
+      "firstName": "Nicholas",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "createdAt": 1619769995644,
+      "id": 4
+    },
+    {
+      "firstName": "a",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "id": 5
+    },
+    {
+      "firstName": "",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "id": 6
+    },
+    {
+      "firstName": "",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "id": 7
+    },
+    {
+      "firstName": "Bobby",
+      "lastName": "Cage",
+      "email": "nickcw@lsn.io",
+      "id": 8
+    }
+  ],
+  "config": {
+    "version": "0.1"
+  }
+}
