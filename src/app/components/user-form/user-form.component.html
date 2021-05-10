@@ -1,12 +1,30 @@
-<form>
+<form
+    *ngIf="formGroup"
+    [formGroup]="formGroup"
+    novalidate
+    ngxsForm="user.form"
+>
     <p>
-        <mat-form-field appearance="legacy">
-            <mat-label>Legacy form field</mat-label>
-            <input matInput placeholder="Placeholder">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-hint>Hint</mat-hint>
+        <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName">
             <mat-error>Error</mat-error>
         </mat-form-field>
     </p>
-    <button mat-stroked-button color="primary">Basic</button>
+    <p>
+        <mat-form-field>
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email">
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+    </p>
+    <button mat-stroked-button color="primary" (click)="addUser()">Add</button>
+    <button mat-stroked-button color="primary" (click)="getUserList()">List</button>
 </form>

@@ -19,7 +19,7 @@ server.post('/users', (req, res, next) => {
             }
         });
         if (errors.length > 0) {
-            res.status(400).jsonp({errors});
+            res.status(400).jsonp(errors);
         } else {
             next();
         }
