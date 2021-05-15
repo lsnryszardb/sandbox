@@ -1,7 +1,10 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Store} from '@ngxs/store';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {Select, Store} from '@ngxs/store';
 import {UserActions} from '../../state/user.actions';
+import {UserState} from '../../state/user.state';
+import {Observable} from 'rxjs';
+import {FormService} from '../../services/form.service';
 
 @Component({
     selector: 'app-user-form',
@@ -9,18 +12,19 @@ import {UserActions} from '../../state/user.actions';
     styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
-    title = 'sandbox';
+    @Select(UserState.validationErrors) validationErrors$: Observable<ValidationErrors>;
 
     formGroup: FormGroup;
 
     constructor(
         private fb: FormBuilder,
         private store: Store,
+        private formService: FormService
     ) {
         this.formGroup = this.fb.group({
-            firstName: [''],
-            lastName: [''],
-            email: [''],
+            firstName: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'firstName')]],
+            lastName: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'lastName')]],
+            email: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'email')]],
         });
     }
 

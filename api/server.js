@@ -15,7 +15,10 @@ server.post('/users', (req, res, next) => {
         const fields = ['firstName', 'lastName', 'email'];
         fields.forEach(field => {
             if (!userData[field]) {
-                errors.push({field, code: 'REQUIRED', description: 'pole jest wymagane'});
+                errors.push({field, code: 'REQUIRED', description: 'field is required'});
+            }
+            if (field === 'email') {
+                errors.push({field, code: 'REQUIRED', description: 'field is required'});
             }
         });
         if (errors.length > 0) {

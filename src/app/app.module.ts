@@ -14,11 +14,14 @@ import {MaterialModule} from './material.module';
 import {UserState} from './state/user.state';
 import {environment} from '../environments/environment';
 import {UserService} from './services/user.service';
+import {FormService} from './services/form.service';
+import {TextInputComponent} from './components/text-input/text-input.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        UserFormComponent
+        TextInputComponent,
+        UserFormComponent,
     ],
     imports: [
         BrowserModule,
@@ -34,7 +37,10 @@ import {UserService} from './services/user.service';
         NgxsFormPluginModule.forRoot(),
         NgxsReduxDevtoolsPluginModule.forRoot()
     ],
-    providers: [UserService],
+    providers: [
+        FormService,
+        UserService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

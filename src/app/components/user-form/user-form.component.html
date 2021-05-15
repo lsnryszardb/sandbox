@@ -1,29 +1,25 @@
 <form
-    *ngIf="formGroup"
     [formGroup]="formGroup"
     novalidate
     ngxsForm="user.form"
 >
     <p>
-        <mat-form-field>
-            <mat-label>First name</mat-label>
-            <input matInput formControlName="firstName">
-            <mat-error>Error</mat-error>
-        </mat-form-field>
+        <app-text-input
+            [control]="formGroup?.get('firstName')"
+            label="First name"
+        ></app-text-input>
     </p>
     <p>
-        <mat-form-field>
-            <mat-label>Last name</mat-label>
-            <input matInput formControlName="lastName">
-            <mat-error>Error</mat-error>
-        </mat-form-field>
+        <app-text-input
+            [control]="formGroup?.get('lastName')"
+            label="Last name"
+        ></app-text-input>
     </p>
     <p>
-        <mat-form-field>
-            <mat-label>E-mail</mat-label>
-            <input matInput formControlName="email">
-            <mat-error>Error</mat-error>
-        </mat-form-field>
+        <app-text-input
+            [control]="formGroup?.get('email')"
+            label="E-mail"
+        ></app-text-input>
     </p>
     <button mat-stroked-button color="primary" (click)="addUser()">Add</button>
     <button mat-stroked-button color="primary" (click)="getUserList()">List</button>

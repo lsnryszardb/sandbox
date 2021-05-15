@@ -1,4 +1,4 @@
-import {Action, State, StateContext} from '@ngxs/store';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {catchError, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
@@ -27,6 +27,11 @@ export class UserState {
     ) {
     }
 
+    @Selector()
+    static validationErrors(state) {
+        return state.form.validationErrors;
+    }
+
     @Action(UserActions.GetList)
     getList(ctx: StateContext<UserStateModel>) {
         return this.userService.getList()
@@ -36,8 +41,7 @@ export class UserState {
                         list: [...response],
                     });
                 }),
-                catchError(error => {
-                    console.log(error);
+                catchError(() => {
                     return EMPTY;
                 })
             );
@@ -50,8 +54,23 @@ export class UserState {
                 tap(response => {
                     console.log(response);
                 }),
-                catchError(error => {
-                    console.log(error);
+                catchError(({error}) => {
+                    const state = ctx.getState();
+                    const validationErrors = {};
+                    if (Array.isArray(error)) {
+                        error.forEach(validationError => {
+                            if (!validationErrors[validationError?.field]) {
+                                validationErrors[validationError?.field] = {};
+                            }
+                            validationErrors[validationError?.field][validationError?.description] = true;
+                        });
+                    }
+                    ctx.patchState({
+                        form: new FormState({
+                            ...state.form,
+                            validationErrors
+                        }),
+                    });
                     return EMPTY;
                 })
             );

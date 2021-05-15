@@ -1,3 +1,5 @@
+import {ValidationErrors} from '@angular/forms';
+
 export enum FormStatus {
     INIT = 'INIT',
     INVALID = 'INVALID',
@@ -10,7 +12,7 @@ export class FormState {
     dirty = false;
     status: FormStatus = FormStatus.INIT;
     errors: any = {};
-    validationErrors: any = {};
+    validationErrors: ValidationErrors = {};
 
     constructor(props = {}) {
         Object.assign(this, props);
