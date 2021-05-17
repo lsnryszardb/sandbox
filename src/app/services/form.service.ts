@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {ValidationError} from '../models/validation-error.model';
 
 @Injectable()
 export class FormService {
-    createStateValidator(selector: Observable<ValidationErrors>, field: string): AsyncValidatorFn {
+
+    createStateValidator(validationErrors$: Observable<ValidationErrors>, field: string): AsyncValidatorFn {
         return (control: AbstractControl): Observable<ValidationErrors | null> => {
-            return selector.pipe(
-                map(validationErrors => {
+            return validationErrors$.pipe(
+                tap(validationErrors => {
                     control.setErrors(null, {emitEvent: false});
                     if (validationErrors?.[field]) {
-                        control.setErrors(validationErrors[field], {emitEvent: false});
+                        control. setErrors(validationErrors[field], {emitEvent: false});
                     }
-                    return validationErrors?.[field] ? validationErrors?.[field] : null;
                 })
             );
         };
@@ -27,7 +27,7 @@ export class FormService {
                 if (!validationErrors[validationError?.field]) {
                     validationErrors[validationError?.field] = {};
                 }
-                validationErrors[validationError?.field][validationError?.description] = true;
+                validationErrors[validationError?.field][validationError?.code] = validationError?.description;
             });
         }
         return validationErrors;

@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {UserActions} from '../../state/user.actions';
 import {UserState} from '../../state/user.state';
@@ -21,10 +21,14 @@ export class UserFormComponent {
         private store: Store,
         private formService: FormService
     ) {
+        const createControlStateValidator = (field: string) => {
+            return this.formService.createStateValidator(this.validationErrors$, field);
+        };
+
         this.formGroup = this.fb.group({
-            firstName: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'firstName')]],
-            lastName: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'lastName')]],
-            email: ['', [], [this.formService.createStateValidator(this.validationErrors$, 'email')]],
+            firstName: ['', [], [createControlStateValidator('firstName')]],
+            lastName: ['', [], [createControlStateValidator('lastName')]],
+            email: ['', [], [createControlStateValidator('email')]],
         });
     }
 

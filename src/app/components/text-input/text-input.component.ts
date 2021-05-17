@@ -11,6 +11,6 @@ export class TextInputComponent {
     @Input() label: string;
 
     get errors() {
-        return this.control?.errors ? Object.keys(this.control.errors) : [];
+        return this.control?.errors ? Object.values(this.control.errors) : [];
     }
 }
