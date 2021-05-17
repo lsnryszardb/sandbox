@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {ValidationErrors} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
-import {FormState} from '../models/form-state.model';
 import {User} from '../models/user.model';
 import {UserActions} from './user.actions';
 import {UserService} from '../services/user.service';

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ValidationError} from '../models/form-state.model';
+import {ValidationError} from '../models/validation-error.model';
 
 @Injectable()
 export class FormService {
