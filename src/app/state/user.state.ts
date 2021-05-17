@@ -52,7 +52,11 @@ export class UserState {
         return this.userService.add(user)
             .pipe(
                 tap(response => {
-                    console.log(response);
+                    ctx.patchState({
+                        form: new FormState({
+                            validationErrors: []
+                        }),
+                    });
                 }),
                 catchError(({error}) => {
                     const state = ctx.getState();

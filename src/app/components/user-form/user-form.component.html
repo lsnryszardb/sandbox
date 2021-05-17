@@ -1,6 +1,7 @@
 <form
     [formGroup]="formGroup"
     novalidate
+    autocomplete="off"
     ngxsForm="user.form"
 >
     <p>
@@ -8,12 +9,13 @@
             [control]="formGroup?.get('firstName')"
             label="First name"
         ></app-text-input>
-    </p>
-    <p>
         <app-text-input
             [control]="formGroup?.get('lastName')"
             label="Last name"
         ></app-text-input>
+    </p>
+    <p>
+
     </p>
     <p>
         <app-text-input

@@ -18,7 +18,10 @@ server.post('/users', (req, res, next) => {
                 errors.push({field, code: 'REQUIRED', description: 'field is required'});
             }
             if (field === 'email') {
-                errors.push({field, code: 'REQUIRED', description: 'field is required'});
+                const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                if (!emailRegex.test(userData[field])) {
+                    errors.push({field, code: 'INVALID_EMAIL', description: 'email is invalid'});
+                }
             }
         });
         if (errors.length > 0) {
