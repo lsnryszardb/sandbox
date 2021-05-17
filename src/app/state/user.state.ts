@@ -9,7 +9,6 @@ import {UserService} from '../services/user.service';
 import {FormService} from '../services/form.service';
 
 interface UserStateModel {
-    // form: FormState;
     list: User[];
     validationErrors: ValidationErrors;
 }
