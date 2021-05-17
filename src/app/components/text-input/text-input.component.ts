@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 @Component({
     selector: 'app-text-input',
@@ -7,7 +7,7 @@ import {FormControl} from '@angular/forms';
     styleUrls: ['./text-input.component.scss'],
 })
 export class TextInputComponent {
-    @Input() control: FormControl;
+    @Input() control: AbstractControl;
     @Input() label: string;
 
     get errors() {

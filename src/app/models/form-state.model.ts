@@ -26,3 +26,9 @@ export class FormState {
         return this.status.toString() === FormStatus.SUCCESS.toString();
     }
 }
+
+export class ValidationError {
+    code: string;
+    description: string;
+    field: string;
+}

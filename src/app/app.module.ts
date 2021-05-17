@@ -34,7 +34,6 @@ import {TextInputComponent} from './components/text-input/text-input.component';
         NgxsModule.forRoot([UserState], {
             developmentMode: !environment.production
         }),
-        NgxsFormPluginModule.forRoot(),
         NgxsReduxDevtoolsPluginModule.forRoot()
     ],
     providers: [

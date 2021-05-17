@@ -1,35 +1,39 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
+import {ValidationErrors} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {FormState} from '../models/form-state.model';
 import {User} from '../models/user.model';
 import {UserActions} from './user.actions';
 import {UserService} from '../services/user.service';
+import {FormService} from '../services/form.service';
 
 interface UserStateModel {
-    form: FormState;
+    // form: FormState;
     list: User[];
+    validationErrors: ValidationErrors;
 }
 
 @State<UserStateModel>({
     name: 'user',
     defaults: {
-        form: new FormState(),
         list: [],
+        validationErrors: {},
     }
 })
 @Injectable()
 export class UserState {
 
     constructor(
+        private formService: FormService,
         private userService: UserService
     ) {
     }
 
     @Selector()
     static validationErrors(state) {
-        return state.form.validationErrors;
+        return state.validationErrors;
     }
 
     @Action(UserActions.GetList)
@@ -38,7 +42,7 @@ export class UserState {
             .pipe(
                 tap(response => {
                     ctx.patchState({
-                        list: [...response],
+                        list: response.map(item => new User(item)),
                     });
                 }),
                 catchError(() => {
@@ -52,28 +56,16 @@ export class UserState {
         return this.userService.add(user)
             .pipe(
                 tap(response => {
+                    const {list} = ctx.getState();
                     ctx.patchState({
-                        form: new FormState({
-                            validationErrors: []
-                        }),
+                        list: [new User(response), ...list],
+                        validationErrors: []
                     });
                 }),
                 catchError(({error}) => {
-                    const state = ctx.getState();
-                    const validationErrors = {};
-                    if (Array.isArray(error)) {
-                        error.forEach(validationError => {
-                            if (!validationErrors[validationError?.field]) {
-                                validationErrors[validationError?.field] = {};
-                            }
-                            validationErrors[validationError?.field][validationError?.description] = true;
-                        });
-                    }
+                    const validationErrors = this.formService.parseErrorResponse(error);
                     ctx.patchState({
-                        form: new FormState({
-                            ...state.form,
-                            validationErrors
-                        }),
+                        validationErrors
                     });
                     return EMPTY;
                 })
