@@ -3,7 +3,7 @@
     novalidate
     autocomplete="off"
 >
-    <p>
+    <section>
         <app-text-input
             [control]="formGroup?.get('firstName')"
             label="First name"
@@ -12,13 +12,13 @@
             [control]="formGroup?.get('lastName')"
             label="Last name"
         ></app-text-input>
-    </p>
-    <p>
+    </section>
+    <section>
         <app-text-input
             [control]="formGroup?.get('email')"
             label="E-mail"
         ></app-text-input>
-    </p>
+    </section>
     <button mat-stroked-button color="primary" (click)="addUser()">Add</button>
     <button mat-stroked-button color="primary" (click)="getUserList()">List</button>
 </form>
