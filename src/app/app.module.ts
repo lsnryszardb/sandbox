@@ -15,10 +15,12 @@ import {environment} from '../environments/environment';
 import {UserService} from './services/user.service';
 import {FormService} from './services/form.service';
 import {TextInputComponent} from './components/text-input/text-input.component';
+import {AddressFormComponent} from './components/address-form/address-form.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        AddressFormComponent,
         TextInputComponent,
         UserFormComponent,
     ],

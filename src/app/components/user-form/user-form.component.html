@@ -19,6 +19,7 @@
             label="E-mail"
         ></app-text-input>
     </section>
+    <app-address-form [group]="formGroup?.get('address')"></app-address-form>
     <button mat-stroked-button color="primary" (click)="addUser()">Add</button>
     <button mat-stroked-button color="primary" (click)="getUserList()">List</button>
 </form>

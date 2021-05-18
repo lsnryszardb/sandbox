@@ -29,6 +29,7 @@ export class UserFormComponent {
             firstName: ['', [], [createControlStateValidator('firstName')]],
             lastName: ['', [], [createControlStateValidator('lastName')]],
             email: ['', [], [createControlStateValidator('email')]],
+            address: this.formService.createAddressFormGroup(this.validationErrors$),
         });
     }
 

@@ -1,13 +1,19 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "firstName": "Keanu",
-      "lastName": "Reeves",
-      "email": "keanur@lsn.io"
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Keanu",
+            "lastName": "Reeves",
+            "email": "keanur@lsn.io",
+            "address": {
+                "city": "Los Angeles",
+                "streetName": "Hollywood Bvd",
+                "streetNumber": "12",
+                "flatNumber": "3"
+            }
+        }
+    ],
+    "config": {
+        "version": "0.1"
     }
-  ],
-  "config": {
-    "version": "0.1"
-  }
 }
