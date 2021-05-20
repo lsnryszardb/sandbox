@@ -8,8 +8,7 @@ import {FormService} from '../../services/form.service';
 
 @Component({
     selector: 'app-contact-form',
-    templateUrl: './contact-form.component.html',
-    styleUrls: ['./contact-form.component.scss']
+    templateUrl: './contact-form.component.html'
 })
 export class ContactFormComponent {
     @Input() group: FormGroup;

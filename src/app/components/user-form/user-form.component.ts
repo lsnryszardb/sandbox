@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {UserActions} from '../../state/user.actions';
 import {UserState} from '../../state/user.state';
@@ -29,11 +29,24 @@ export class UserFormComponent {
             firstName: ['', [], [createControlStateValidator('firstName')]],
             lastName: ['', [], [createControlStateValidator('lastName')]],
             address: this.formService.createAddressFormGroup(this.validationErrors$),
-            contact: this.formService.createContactFormGroup(this.validationErrors$),
+            contacts: this.fb.array([])
         });
     }
 
-    addUser() {
+    get contactArray(): FormArray {
+        return this.formGroup.get('contacts') as FormArray;
+    }
+
+    addContactItem() {
+        const contactFormGroup = this.formService.createContactFormGroup(this.validationErrors$, `contacts[${this.contactArray?.controls?.length}]`);
+        this.contactArray.push(contactFormGroup);
+    }
+
+    removeContactItem(index: number) {
+        this.contactArray.removeAt(index);
+    }
+
+    submitUser() {
         const user = this.formGroup.value;
         this.store.dispatch(new UserActions.Add(user));
     }

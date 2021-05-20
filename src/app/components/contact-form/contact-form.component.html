@@ -1,16 +1,14 @@
-<section>
-    <app-select label="Type" [control]="group?.get('type')" [items]="contactTypes">
-    </app-select>
+<app-select label="Type" [control]="group?.get('type')" [items]="contactTypes">
+</app-select>
 
-    <app-text-input
-        *ngIf="group?.get('type')?.value === 'EMAIL'"
-        [control]="group?.get('email')"
-        label="E-mail"
-    ></app-text-input>
+<app-text-input
+    *ngIf="group?.get('type')?.value === 'EMAIL'"
+    [control]="group?.get('email')"
+    label="E-mail"
+></app-text-input>
 
-    <app-text-input
-        *ngIf="group?.get('type')?.value === 'PHONE'"
-        [control]="group?.get('phone')"
-        label="Phone"
-    ></app-text-input>
-</section>
+<app-text-input
+    *ngIf="group?.get('type')?.value === 'PHONE'"
+    [control]="group?.get('phone')"
+    label="Phone"
+></app-text-input>

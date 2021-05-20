@@ -10,6 +10,10 @@ server.use(middlewares);
 
 server.use(jsonServer.bodyParser);
 
+const requiredError = (field) => {
+    return {field, code: 'REQUIRED', description: 'field is required'};
+};
+
 server.post('/users', (req, res, next) => {
     if (req.method === 'POST') {
         const errors = [];
@@ -18,15 +22,36 @@ server.post('/users', (req, res, next) => {
         fields.forEach(field => {
             const fieldValue = getValue(userData, field);
             if (!fieldValue) {
-                errors.push({field, code: 'REQUIRED', description: 'field is required'});
+                errors.push(requiredError(field));
             }
             if (field === 'email') {
-                const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-                if (!emailRegex.test(fieldValue)) {
-                    errors.push({field, code: 'INVALID_EMAIL', description: 'email is invalid'});
-                }
+
             }
         });
+        if (Array.isArray(userData.contacts)) {
+            userData.contacts.forEach((contact, index) => {
+                if (!contact.type) {
+                    errors.push(requiredError(`contacts[${index}].type`));
+                }
+                if (contact.type === 'EMAIL') {
+                    if (!contact.email) {
+                        errors.push(requiredError(`contacts[${index}].email`));
+                    } else {
+                        const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                        if (!emailRegex.test(fieldValue)) {
+                            errors.push({
+                                field: `contacts[${index}].email`,
+                                code: 'INVALID_EMAIL',
+                                description: 'email is invalid'
+                            });
+                        }
+                    }
+                }
+                if (contact.type === 'PHONE' && !contact.phone) {
+                    errors.push(requiredError(`contacts[${index}].phone`));
+                }
+            });
+        }
         if (errors.length > 0) {
             res.status(400).jsonp(errors);
         } else {
