@@ -28,8 +28,8 @@ export class UserFormComponent {
         this.formGroup = this.fb.group({
             firstName: ['', [], [createControlStateValidator('firstName')]],
             lastName: ['', [], [createControlStateValidator('lastName')]],
-            email: ['', [], [createControlStateValidator('email')]],
             address: this.formService.createAddressFormGroup(this.validationErrors$),
+            contact: this.formService.createContactFormGroup(this.validationErrors$),
         });
     }
 

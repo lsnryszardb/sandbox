@@ -31,6 +31,14 @@ export class FormService {
         });
     }
 
+    createContactFormGroup(validationErrors$: Observable<ValidationErrors>, fieldPrefix = 'contact'): FormGroup {
+        return this.fb.group({
+            type: ['', [], [this.createStateValidator(validationErrors$, `${fieldPrefix}.type`)]],
+            email: ['', [], [this.createStateValidator(validationErrors$, `${fieldPrefix}.email`)]],
+            phone: ['', [], [this.createStateValidator(validationErrors$, `${fieldPrefix}.phone`)]],
+        });
+    }
+
     parseErrorResponse(errorResponse: ValidationError[]): ValidationErrors {
         const validationErrors = {};
         if (Array.isArray(errorResponse)) {

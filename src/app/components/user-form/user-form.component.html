@@ -3,6 +3,7 @@
     novalidate
     autocomplete="off"
 >
+    <h3>Personal info</h3>
     <section>
         <app-text-input
             [control]="formGroup?.get('firstName')"
@@ -13,13 +14,12 @@
             label="Last name"
         ></app-text-input>
     </section>
-    <section>
-        <app-text-input
-            [control]="formGroup?.get('email')"
-            label="E-mail"
-        ></app-text-input>
-    </section>
+    <h3>Address</h3>
     <app-address-form [group]="formGroup?.get('address')"></app-address-form>
+    <h3>Contact info</h3>
+    <section>
+        <app-contact-form [group]="formGroup?.get('contact')"></app-contact-form>
+    </section>
     <button mat-stroked-button color="primary" (click)="addUser()">Add</button>
     <button mat-stroked-button color="primary" (click)="getUserList()">List</button>
 </form>

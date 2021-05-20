@@ -1,13 +1,15 @@
 import {Component, Input} from '@angular/core';
 import {AbstractControl, FormControl} from '@angular/forms';
+import {DictionaryItem} from '../../models/dictionary-item.model';
 
 @Component({
-    selector: 'app-text-input',
-    templateUrl: './text-input.component.html',
-    styleUrls: ['./text-input.component.scss'],
+    selector: 'app-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
 })
-export class TextInputComponent {
+export class SelectComponent {
     @Input() control: AbstractControl;
+    @Input() items: DictionaryItem[];
     @Input() label: string;
 
     get formControl(): FormControl {

@@ -16,11 +16,15 @@ import {UserService} from './services/user.service';
 import {FormService} from './services/form.service';
 import {TextInputComponent} from './components/text-input/text-input.component';
 import {AddressFormComponent} from './components/address-form/address-form.component';
+import {ContactFormComponent} from './components/contact-form/contact-form.component';
+import {SelectComponent} from './components/select/select.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AddressFormComponent,
+        ContactFormComponent,
+        SelectComponent,
         TextInputComponent,
         UserFormComponent,
     ],
