@@ -6,7 +6,7 @@ import {EMPTY} from 'rxjs';
 import {User} from '../models/user.model';
 import {UserActions} from './user.actions';
 import {UserService} from '../services/user.service';
-import {FormService} from '../services/form.service';
+import {ValidationService} from '../services/validation.service';
 
 interface UserStateModel {
     list: User[];
@@ -24,7 +24,7 @@ interface UserStateModel {
 export class UserState {
 
     constructor(
-        private formService: FormService,
+        private validationService: ValidationService,
         private userService: UserService
     ) {
     }
@@ -61,7 +61,7 @@ export class UserState {
                     });
                 }),
                 catchError(({error}) => {
-                    const validationErrors = {...this.formService.parseErrorResponse(error)};
+                    const validationErrors = {...this.validationService.parseErrorResponse(error)};
                     ctx.patchState({
                         validationErrors
                     });

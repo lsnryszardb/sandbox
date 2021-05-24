@@ -5,6 +5,7 @@ import {UserActions} from '../../state/user.actions';
 import {UserState} from '../../state/user.state';
 import {Observable, Subscription} from 'rxjs';
 import {FormService} from '../../services/form.service';
+import {ValidationService} from '../../services/validation.service';
 
 @Component({
     selector: 'app-user-form',
@@ -19,7 +20,8 @@ export class UserFormComponent implements OnDestroy {
     constructor(
         private fb: FormBuilder,
         private store: Store,
-        private formService: FormService
+        private formService: FormService,
+        private validationService: ValidationService
     ) {
         this.formGroup = this.fb.group({
             firstName: [''],
@@ -30,7 +32,7 @@ export class UserFormComponent implements OnDestroy {
 
         this.subscriptions.add(
             this.validationErrors$.subscribe((validationErrors) => {
-                this.formService.setFormGroupValidators(this.formGroup, validationErrors, '');
+                this.validationService.setFormGroupValidators(this.formGroup, validationErrors, '');
             })
         );
     }

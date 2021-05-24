@@ -18,6 +18,7 @@ import {TextInputComponent} from './components/text-input/text-input.component';
 import {AddressFormComponent} from './components/address-form/address-form.component';
 import {ContactFormComponent} from './components/contact-form/contact-form.component';
 import {SelectComponent} from './components/select/select.component';
+import {ValidationService} from './services/validation.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import {SelectComponent} from './components/select/select.component';
     ],
     providers: [
         FormService,
-        UserService
+        UserService,
+        ValidationService
     ],
     bootstrap: [AppComponent]
 })
