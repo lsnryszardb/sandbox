@@ -61,7 +61,7 @@ export class UserState {
                     });
                 }),
                 catchError(({error}) => {
-                    const validationErrors = this.formService.parseErrorResponse(error);
+                    const validationErrors = {...this.formService.parseErrorResponse(error)};
                     ctx.patchState({
                         validationErrors
                     });

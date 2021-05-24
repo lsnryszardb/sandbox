@@ -18,7 +18,7 @@ server.post('/users', (req, res, next) => {
     if (req.method === 'POST') {
         const errors = [];
         const userData = req.body || {};
-        const fields = ['firstName', 'lastName', 'email', 'address.city', 'address.streetName', 'address.streetNumber'];
+        const fields = ['firstName', 'lastName', 'address.city', 'address.streetName', 'address.streetNumber'];
         fields.forEach(field => {
             const fieldValue = getValue(userData, field);
             if (!fieldValue) {
@@ -38,7 +38,7 @@ server.post('/users', (req, res, next) => {
                         errors.push(requiredError(`contacts[${index}].email`));
                     } else {
                         const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-                        if (!emailRegex.test(fieldValue)) {
+                        if (!emailRegex.test(contact.email)) {
                             errors.push({
                                 field: `contacts[${index}].email`,
                                 code: 'INVALID_EMAIL',

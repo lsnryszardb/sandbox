@@ -15,6 +15,7 @@ export class UserFormComponent {
     @Select(UserState.validationErrors) validationErrors$: Observable<ValidationErrors>;
 
     formGroup: FormGroup;
+    // validationIndex = 0;
 
     constructor(
         private fb: FormBuilder,
@@ -22,14 +23,24 @@ export class UserFormComponent {
         private formService: FormService
     ) {
         const createControlStateValidator = (field: string) => {
-            return this.formService.createStateValidator(this.validationErrors$, field);
+            return this.formService.createAsyncStateValidator(this.validationErrors$, field);
         };
 
         this.formGroup = this.fb.group({
-            firstName: ['', [], [createControlStateValidator('firstName')]],
-            lastName: ['', [], [createControlStateValidator('lastName')]],
-            address: this.formService.createAddressFormGroup(this.validationErrors$),
+            firstName: [''],
+            lastName: [''],
+            address: this.formService.createAddressFormGroup(null),
             contacts: this.fb.array([])
+        });
+
+        this.validationErrors$.subscribe((validationErrors) => {
+            this.formGroup.get('firstName').setValidators([
+                this.formService.createSyncStateValidator(validationErrors, 'firstName')
+            ]);
+            // this.formService.setFormGroupErrors(this.formGroup, validationErrors, '');
+
+            // this.contactArray.setAsyncValidators(this.formService.createFormArrayStateValidator(this.validationErrors$, 'contacts'));
+            this.formGroup.get('firstName').updateValueAndValidity();
         });
     }
 
@@ -38,7 +49,9 @@ export class UserFormComponent {
     }
 
     addContactItem() {
-        const contactFormGroup = this.formService.createContactFormGroup(this.validationErrors$, `contacts[${this.contactArray?.controls?.length}]`);
+        // const index = Math.max(this.validationIndex, this.contactArray?.controls?.length);
+        // const contactFormGroup = this.formService.createContactFormGroup(this.validationErrors$, `contacts[${index}]`);
+        const contactFormGroup = this.formService.createContactFormGroup(null);
         this.contactArray.push(contactFormGroup);
     }
 
@@ -47,6 +60,7 @@ export class UserFormComponent {
     }
 
     submitUser() {
+        // this.validationIndex = this.contactArray?.controls?.length;
         const user = this.formGroup.value;
         this.store.dispatch(new UserActions.Add(user));
     }
