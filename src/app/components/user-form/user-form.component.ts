@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {UserActions} from '../../state/user.actions';
 import {UserState} from '../../state/user.state';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {FormService} from '../../services/form.service';
 
 @Component({
@@ -11,37 +11,28 @@ import {FormService} from '../../services/form.service';
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnDestroy {
     @Select(UserState.validationErrors) validationErrors$: Observable<ValidationErrors>;
-
+    subscriptions = new Subscription();
     formGroup: FormGroup;
-    // validationIndex = 0;
 
     constructor(
         private fb: FormBuilder,
         private store: Store,
         private formService: FormService
     ) {
-        const createControlStateValidator = (field: string) => {
-            return this.formService.createAsyncStateValidator(this.validationErrors$, field);
-        };
-
         this.formGroup = this.fb.group({
             firstName: [''],
             lastName: [''],
-            address: this.formService.createAddressFormGroup(null),
+            address: this.formService.createAddressFormGroup(),
             contacts: this.fb.array([])
         });
 
-        this.validationErrors$.subscribe((validationErrors) => {
-            this.formGroup.get('firstName').setValidators([
-                this.formService.createSyncStateValidator(validationErrors, 'firstName')
-            ]);
-            // this.formService.setFormGroupErrors(this.formGroup, validationErrors, '');
-
-            // this.contactArray.setAsyncValidators(this.formService.createFormArrayStateValidator(this.validationErrors$, 'contacts'));
-            this.formGroup.get('firstName').updateValueAndValidity();
-        });
+        this.subscriptions.add(
+            this.validationErrors$.subscribe((validationErrors) => {
+                this.formService.setFormGroupValidators(this.formGroup, validationErrors, '');
+            })
+        );
     }
 
     get contactArray(): FormArray {
@@ -49,9 +40,7 @@ export class UserFormComponent {
     }
 
     addContactItem() {
-        // const index = Math.max(this.validationIndex, this.contactArray?.controls?.length);
-        // const contactFormGroup = this.formService.createContactFormGroup(this.validationErrors$, `contacts[${index}]`);
-        const contactFormGroup = this.formService.createContactFormGroup(null);
+        const contactFormGroup = this.formService.createContactFormGroup();
         this.contactArray.push(contactFormGroup);
     }
 
@@ -60,12 +49,15 @@ export class UserFormComponent {
     }
 
     submitUser() {
-        // this.validationIndex = this.contactArray?.controls?.length;
         const user = this.formGroup.value;
         this.store.dispatch(new UserActions.Add(user));
     }
 
     getUserList() {
         this.store.dispatch(new UserActions.GetList());
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
     }
 }
