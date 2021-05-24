@@ -25,6 +25,8 @@ export class FormService {
         });
     }
 
+
+    /* state ValidationErrors handling start */
     createStateValidator(validationErrors: ValidationErrors, field: string) {
         return (): ValidationErrors | null => {
             if (validationErrors?.[field]) {
@@ -33,8 +35,6 @@ export class FormService {
             return null;
         };
     }
-
-    /* state ValidationErrors handling start */
 
     setFormControlValidators(formControl: FormControl, validationErrors: ValidationErrors, fieldName) {
         if (!formControl) {
