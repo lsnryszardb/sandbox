@@ -19,6 +19,7 @@ import {AddressFormComponent} from './components/address-form/address-form.compo
 import {ContactFormComponent} from './components/contact-form/contact-form.component';
 import {SelectComponent} from './components/select/select.component';
 import {ValidationService} from './services/validation.service';
+import {ConnectFormDirective} from './directives/connect-form.directive';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {ValidationService} from './services/validation.service';
         SelectComponent,
         TextInputComponent,
         UserFormComponent,
+        ConnectFormDirective,
     ],
     imports: [
         BrowserModule,

@@ -17,7 +17,7 @@ interface UserStateModel {
     name: 'user',
     defaults: {
         list: [],
-        validationErrors: {},
+        validationErrors: null,
     }
 })
 @Injectable()

@@ -1,27 +1,24 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
 import {UserActions} from '../../state/user.actions';
 import {UserState} from '../../state/user.state';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {FormService} from '../../services/form.service';
-import {ValidationService} from '../../services/validation.service';
 
 @Component({
     selector: 'app-user-form',
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnDestroy {
+export class UserFormComponent {
     @Select(UserState.validationErrors) validationErrors$: Observable<ValidationErrors>;
-    subscriptions = new Subscription();
     formGroup: FormGroup;
 
     constructor(
         private fb: FormBuilder,
         private store: Store,
         private formService: FormService,
-        private validationService: ValidationService
     ) {
         this.formGroup = this.fb.group({
             firstName: [''],
@@ -29,12 +26,6 @@ export class UserFormComponent implements OnDestroy {
             address: this.formService.createAddressFormGroup(),
             contacts: this.fb.array([])
         });
-
-        this.subscriptions.add(
-            this.validationErrors$.subscribe((validationErrors) => {
-                this.validationService.setFormGroupValidators(this.formGroup, validationErrors, '');
-            })
-        );
     }
 
     get contactArray(): FormArray {
@@ -57,9 +48,5 @@ export class UserFormComponent implements OnDestroy {
 
     getUserList() {
         this.store.dispatch(new UserActions.GetList());
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe();
     }
 }
