@@ -28,7 +28,9 @@ server.post('/users', (req, res, next) => {
 
             }
         });
-        if (Array.isArray(userData.contacts)) {
+        if (!Array.isArray(userData.contacts) || Array.isArray(userData.contacts) && !userData.contacts.length) {
+            errors.push(requiredError(`contacts`));
+        } else {
             userData.contacts.forEach((contact, index) => {
                 if (!contact.type) {
                     errors.push(requiredError(`contacts[${index}].type`));

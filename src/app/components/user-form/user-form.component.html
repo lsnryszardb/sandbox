@@ -19,10 +19,11 @@
     <app-address-form [group]="formGroup?.get('address')"></app-address-form>
     <section>
         <h3>
-            Contact info
+            <span>Contact info</span>
             <button mat-icon-button color="primary" (click)="addContactItem()">
                 <mat-icon>add_circle</mat-icon>
             </button>
+            <app-errors [control]="formGroup?.get('contacts')"></app-errors>
         </h3>
         <div *ngFor="let contactGroup of contactArray?.controls; let index = index;">
             <button mat-icon-button color="primary" (click)="removeContactItem(index)">

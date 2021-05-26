@@ -20,12 +20,14 @@ import {ContactFormComponent} from './components/contact-form/contact-form.compo
 import {SelectComponent} from './components/select/select.component';
 import {ValidationService} from './services/validation.service';
 import {ConnectFormDirective} from './directives/connect-form.directive';
+import {ErrorsComponent} from './components/errors/errors.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AddressFormComponent,
         ContactFormComponent,
+        ErrorsComponent,
         SelectComponent,
         TextInputComponent,
         UserFormComponent,

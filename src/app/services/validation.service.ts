@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 import {ValidationError} from '../models/validation-error.model';
 
 @Injectable()
@@ -13,17 +13,20 @@ export class ValidationService {
         };
     }
 
-    setFormControlValidators(formControl: FormControl, validationErrors: ValidationErrors, fieldName) {
-        if (!formControl) {
+    setControlValidators(control: AbstractControl, validationErrors: ValidationErrors, fieldName) {
+        if (!control) {
             return;
         }
-        formControl.setValidators([
-           this.createStateValidator(validationErrors, fieldName)
+        control.setValidators([
+            this.createStateValidator(validationErrors, fieldName)
         ]);
-        formControl.updateValueAndValidity();
+        control.updateValueAndValidity({onlySelf: true});
     }
 
     setFormGroupValidators(formGroup: FormGroup, validationErrors: ValidationErrors, fieldPrefix) {
+        if (fieldPrefix) {
+            this.setControlValidators(formGroup, validationErrors, fieldPrefix);
+        }
         Object.keys(formGroup?.controls).forEach(controlName => {
             const controlPath = fieldPrefix ? `${fieldPrefix}.${controlName}` : controlName;
             const control = formGroup.get(controlName);
@@ -32,6 +35,9 @@ export class ValidationService {
     }
 
     setFormArrayValidators(formArray: FormArray, validationErrors: ValidationErrors, fieldPrefix) {
+        if (fieldPrefix) {
+            this.setControlValidators(formArray, validationErrors, fieldPrefix);
+        }
         formArray.controls.forEach((formControl, index) => {
             if (formControl instanceof FormGroup) {
                 Object.keys(formControl?.controls).forEach(controlName => {
@@ -44,12 +50,12 @@ export class ValidationService {
     }
 
     setAbstractControlValidators(control: AbstractControl, validationErrors: ValidationErrors, fieldPath) {
-        if (control instanceof FormControl) {
-            this.setFormControlValidators(control, validationErrors, fieldPath);
-        } else if (control instanceof FormGroup) {
+        if (control instanceof FormGroup) {
             this.setFormGroupValidators(control, validationErrors, fieldPath);
         } else if (control instanceof FormArray) {
             this.setFormArrayValidators(control, validationErrors, fieldPath);
+        } else if (control instanceof FormControl) {
+            this.setControlValidators(control, validationErrors, fieldPath);
         }
     }
 
