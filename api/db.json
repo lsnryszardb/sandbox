@@ -4,13 +4,19 @@
             "id": 1,
             "firstName": "Keanu",
             "lastName": "Reeves",
-            "email": "keanur@lsn.io",
             "address": {
                 "city": "Los Angeles",
                 "streetName": "Hollywood Bvd",
                 "streetNumber": "12",
                 "flatNumber": "3"
-            }
+            },
+            "contacts": [
+                {
+                    "type": "EMAIL",
+                    "email": "keanur@lsn.io",
+                    "phone": ""
+                }
+            ]
         }
     ],
     "config": {
