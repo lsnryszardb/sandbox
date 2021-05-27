@@ -1,20 +1,19 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {ValidationErrors} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {User} from '../models/user.model';
 import {UserActions} from './user.actions';
 import {UserService} from '../services/user.service';
-import {ValidationService} from '../services/validation.service';
+import {ValidationStateModel} from '../modules/validation/models/validation-state.model';
+import {ValidationActions} from '../modules/validation/state/validation.actions';
 
-interface UserStateModel {
+interface UserStateModel extends ValidationStateModel {
     list: User[];
-    validationErrors: ValidationErrors;
 }
 
 @State<UserStateModel>({
-    name: 'user',
+    name: UserState.STATE_NAME,
     defaults: {
         list: [],
         validationErrors: null,
@@ -22,9 +21,9 @@ interface UserStateModel {
 })
 @Injectable()
 export class UserState {
+    static readonly STATE_NAME = 'user';
 
     constructor(
-        private validationService: ValidationService,
         private userService: UserService
     ) {
     }
@@ -61,11 +60,7 @@ export class UserState {
                     });
                 }),
                 catchError(({error}) => {
-                    const validationErrors = {...this.validationService.parseErrorResponse(error)};
-                    ctx.patchState({
-                        validationErrors
-                    });
-                    return EMPTY;
+                    return ctx.dispatch(new ValidationActions.Set(UserState.STATE_NAME, error));
                 })
             );
     }

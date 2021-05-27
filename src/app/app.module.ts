@@ -18,9 +18,8 @@ import {TextInputComponent} from './components/text-input/text-input.component';
 import {AddressFormComponent} from './components/address-form/address-form.component';
 import {ContactFormComponent} from './components/contact-form/contact-form.component';
 import {SelectComponent} from './components/select/select.component';
-import {ValidationService} from './services/validation.service';
-import {ConnectFormDirective} from './directives/connect-form.directive';
 import {ErrorsComponent} from './components/errors/errors.component';
+import {ValidationModule} from './modules/validation/validation.module';
 
 @NgModule({
     declarations: [
@@ -31,7 +30,6 @@ import {ErrorsComponent} from './components/errors/errors.component';
         SelectComponent,
         TextInputComponent,
         UserFormComponent,
-        ConnectFormDirective,
     ],
     imports: [
         BrowserModule,
@@ -44,12 +42,12 @@ import {ErrorsComponent} from './components/errors/errors.component';
         NgxsModule.forRoot([UserState], {
             developmentMode: !environment.production
         }),
+        ValidationModule.forRoot(),
         NgxsReduxDevtoolsPluginModule.forRoot()
     ],
     providers: [
         FormService,
         UserService,
-        ValidationService
     ],
     bootstrap: [AppComponent]
 })

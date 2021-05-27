@@ -60,6 +60,9 @@ export class ValidationService {
     }
 
     parseErrorResponse(errorResponse: ValidationError[]): ValidationErrors {
+        if (!errorResponse) {
+            return null;
+        }
         const validationErrors = {};
         if (Array.isArray(errorResponse)) {
             errorResponse.forEach(validationError => {
