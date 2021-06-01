@@ -9,12 +9,14 @@ import {ValidationStateModel} from '../modules/validation/models/validation-stat
 import {ValidationActions} from '../modules/validation/state/validation.actions';
 
 interface UserStateModel extends ValidationStateModel {
+    activeUser: User;
     list: User[];
 }
 
 @State<UserStateModel>({
     name: UserState.STATE_NAME,
     defaults: {
+        activeUser: null,
         list: [],
         validationErrors: null,
     }
@@ -36,6 +38,21 @@ export class UserState {
     @Selector()
     static validationErrors(state) {
         return state.validationErrors;
+    }
+
+    @Action(UserActions.GetById)
+    getById(ctx: StateContext<UserStateModel>, {id}: UserActions.GetById) {
+        return this.userService.get(id)
+            .pipe(
+                map(response => {
+                    return ctx.patchState({
+                        activeUser: new User(response),
+                    });
+                }),
+                catchError(() => {
+                    return EMPTY;
+                })
+            );
     }
 
     @Action(UserActions.GetList)

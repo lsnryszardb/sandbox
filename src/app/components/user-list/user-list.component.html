@@ -15,6 +15,15 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="operations">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let user">
+                <button mat-icon-button aria-label="Edit user" [routerLink]="'/users/' + user.id">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

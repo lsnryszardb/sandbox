@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {UserListComponent} from './components/user-list/user-list.component';
 import {UserListResolver} from './resolvers/user-list.resolver';
+import {UserResolver} from './resolvers/user.resolver';
 
 const routes: Routes = [
     {
@@ -21,8 +22,11 @@ const routes: Routes = [
                 component: UserFormComponent
             },
             {
-                path: ':id',
-                component: UserFormComponent
+                path: ':userId',
+                component: UserFormComponent,
+                resolve: [
+                    UserResolver
+                ]
             }
         ]
     },
@@ -36,7 +40,10 @@ const routes: Routes = [
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: [UserListResolver]
+    providers: [
+        UserListResolver,
+        UserResolver,
+    ]
 })
 export class AppRoutingModule {
 }

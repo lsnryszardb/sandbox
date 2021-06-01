@@ -11,5 +11,5 @@ import {User} from '../../models/user.model';
 })
 export class UserListComponent {
     @Select(UserState.users) users$: Observable<User[]>;
-    displayedColumns: string[] = ['name', 'address'];
+    displayedColumns: string[] = ['name', 'address', 'operations'];
 }

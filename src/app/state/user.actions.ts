@@ -8,6 +8,13 @@ export namespace UserActions {
         }
     }
 
+    export class GetById {
+        static readonly type = 'UserActions.GetById';
+
+        constructor(public id: number) {
+        }
+    }
+
     export class GetList {
         static readonly type = 'UserActions.GetList';
     }
