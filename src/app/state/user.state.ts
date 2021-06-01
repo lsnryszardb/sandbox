@@ -1,6 +1,6 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {User} from '../models/user.model';
 import {UserActions} from './user.actions';
@@ -29,6 +29,11 @@ export class UserState {
     }
 
     @Selector()
+    static users(state) {
+        return state.list;
+    }
+
+    @Selector()
     static validationErrors(state) {
         return state.validationErrors;
     }
@@ -37,8 +42,8 @@ export class UserState {
     getList(ctx: StateContext<UserStateModel>) {
         return this.userService.getList()
             .pipe(
-                tap(response => {
-                    ctx.patchState({
+                map(response => {
+                    return ctx.patchState({
                         list: response.map(item => new User(item)),
                     });
                 }),

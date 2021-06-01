@@ -15,6 +15,10 @@ export class UserService {
         return this.http.post(this.baseUrl, {...user});
     }
 
+    get(id: number) {
+        return this.http.get<User>(`${this.baseUrl}/${id}`);
+    }
+
     getList() {
         return this.http.get<User[]>(this.baseUrl);
     }

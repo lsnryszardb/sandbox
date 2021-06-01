@@ -6,12 +6,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 
+import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {MaterialModule} from './material.module';
 import {UserState} from './state/user.state';
-import {environment} from '../environments/environment';
 import {UserService} from './services/user.service';
 import {FormService} from './services/form.service';
 import {TextInputComponent} from './components/text-input/text-input.component';
@@ -20,6 +20,7 @@ import {ContactFormComponent} from './components/contact-form/contact-form.compo
 import {SelectComponent} from './components/select/select.component';
 import {ErrorsComponent} from './components/errors/errors.component';
 import {ValidationModule} from './modules/validation/validation.module';
+import {UserListComponent} from './components/user-list/user-list.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import {ValidationModule} from './modules/validation/validation.module';
         SelectComponent,
         TextInputComponent,
         UserFormComponent,
+        UserListComponent
     ],
     imports: [
         BrowserModule,
