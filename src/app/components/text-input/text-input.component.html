@@ -2,8 +2,10 @@
     <mat-label>{{label}}</mat-label>
     <input
         matInput
-        [formControl]="formControl"
-        autocomplete ="off"
+        [formControl]="control"
+        autocomplete="off"
+        [errorStateMatcher]="matcher"
+        [attr.data-cy]="formControlName"
     />
     <mat-error *ngFor="let error of errors">
         {{error}}

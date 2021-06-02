@@ -1,20 +1,17 @@
-import {Component, Input} from '@angular/core';
-import {AbstractControl, FormControl} from '@angular/forms';
+import {Component} from '@angular/core';
+import {CustomFormControl} from '../abstract/custom-form-control.component';
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
+
 
 @Component({
     selector: 'app-text-input',
     templateUrl: './text-input.component.html',
     styleUrls: ['./text-input.component.scss'],
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: TextInputComponent,
+        multi: true
+    }]
 })
-export class TextInputComponent {
-    @Input() control: AbstractControl;
-    @Input() label: string;
-
-    get formControl(): FormControl {
-        return this.control as FormControl;
-    }
-
-    get errors() {
-        return this.control?.errors ? Object.values(this.control.errors) : [];
-    }
+export class TextInputComponent extends CustomFormControl {
 }

@@ -88,7 +88,7 @@ export class UserState {
                     const {list} = ctx.getState();
                     ctx.patchState({
                         list: [new User(response), ...list],
-                        validationErrors: []
+                        validationErrors: null
                     });
                     this.router.navigate(['/users']);
                 }),

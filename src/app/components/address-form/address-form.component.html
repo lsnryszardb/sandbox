@@ -1,20 +1,22 @@
-<section>
-    <app-text-input
-        [control]="group?.get('city')"
-        label="City"
-    ></app-text-input>
-</section>
-<section>
-    <app-text-input
-        [control]="group?.get('streetName')"
-        label="Street name"
-    ></app-text-input>
-    <app-text-input
-        [control]="group?.get('streetNumber')"
-        label="Street number"
-    ></app-text-input>
-    <app-text-input
-        [control]="group?.get('flatNumber')"
-        label="Flat number"
-    ></app-text-input>
-</section>
+<div [formGroup]="group">
+    <section>
+        <app-text-input
+            formControlName="city"
+            label="City"
+        ></app-text-input>
+    </section>
+    <section>
+        <app-text-input
+            formControlName="streetName"
+            label="Street name"
+        ></app-text-input>
+        <app-text-input
+            formControlName="streetNumber"
+            label="Street number"
+        ></app-text-input>
+        <app-text-input
+            formControlName="flatNumber"
+            label="Flat number"
+        ></app-text-input>
+    </section>
+</div>

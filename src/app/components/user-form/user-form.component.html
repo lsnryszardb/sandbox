@@ -7,11 +7,11 @@
     <h3>Personal info</h3>
     <section>
         <app-text-input
-            [control]="formGroup?.get('firstName')"
+            formControlName="firstName"
             label="First name"
         ></app-text-input>
         <app-text-input
-            [control]="formGroup?.get('lastName')"
+            formControlName="lastName"
             label="Last name"
         ></app-text-input>
     </section>

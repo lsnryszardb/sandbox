@@ -37,7 +37,6 @@ export class ConnectFormDirective implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed$))
             .subscribe((validationErrors) => {
                 this.validationService.setFormGroupValidators(this.formGroupDirective.form, validationErrors, '');
-                this.formGroupDirective.form.updateValueAndValidity();
             });
 
         this.store.dispatch(new ValidationActions.Set(this.path, null));

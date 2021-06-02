@@ -1,10 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Form, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
-import {Select, Store} from '@ngxs/store';
-import {UserActions} from '../../state/user.actions';
-import {UserState} from '../../state/user.state';
-import {Observable} from 'rxjs';
-import {FormService} from '../../services/form.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-contact-form',

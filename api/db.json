@@ -1,25 +1,25 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Keanu",
+      "lastName": "Reeves",
+      "address": {
+        "city": "Los Angeles",
+        "streetName": "Hollywood Bvd",
+        "streetNumber": "12",
+        "flatNumber": "3"
+      },
+      "contacts": [
         {
-            "id": 1,
-            "firstName": "Keanu",
-            "lastName": "Reeves",
-            "address": {
-                "city": "Los Angeles",
-                "streetName": "Hollywood Bvd",
-                "streetNumber": "12",
-                "flatNumber": "3"
-            },
-            "contacts": [
-                {
-                    "type": "EMAIL",
-                    "email": "keanur@lsn.io",
-                    "phone": ""
-                }
-            ]
+          "type": "EMAIL",
+          "email": "keanur@lsn.io",
+          "phone": ""
         }
-    ],
-    "config": {
-        "version": "0.1"
+      ]
     }
+  ],
+  "config": {
+    "version": "0.1"
+  }
 }
