@@ -9,7 +9,7 @@ import {UserState} from '../state/user.state';
 
 @Injectable()
 export class UserListResolver implements Resolve<User[]> {
-    @Select(UserState) users$: Observable<User[]>;
+    @Select(UserState.users) users$: Observable<User[]>;
 
     constructor(
         private store: Store

@@ -7,6 +7,7 @@ import {UserActions} from './user.actions';
 import {UserService} from '../services/user.service';
 import {ValidationStateModel} from '../modules/validation/models/validation-state.model';
 import {ValidationActions} from '../modules/validation/state/validation.actions';
+import {Router} from '@angular/router';
 
 interface UserStateModel extends ValidationStateModel {
     activeUser: User;
@@ -26,8 +27,14 @@ export class UserState {
     static readonly STATE_NAME = 'user';
 
     constructor(
+        private router: Router,
         private userService: UserService
     ) {
+    }
+
+    @Selector()
+    static activeUser(state) {
+        return state.activeUser;
     }
 
     @Selector()
@@ -70,9 +77,12 @@ export class UserState {
             );
     }
 
-    @Action(UserActions.Add)
-    addUser(ctx: StateContext<UserStateModel>, {user}: UserActions.Add) {
-        return this.userService.add(user)
+    @Action(UserActions.Set)
+    setUser(ctx: StateContext<UserStateModel>, {user}: UserActions.Set) {
+        const request = user?.id
+            ? this.userService.edit(user)
+            : this.userService.add(user);
+        return request
             .pipe(
                 tap(response => {
                     const {list} = ctx.getState();
@@ -80,6 +90,7 @@ export class UserState {
                         list: [new User(response), ...list],
                         validationErrors: []
                     });
+                    this.router.navigate(['/users']);
                 }),
                 catchError(({error}) => {
                     return ctx.dispatch(new ValidationActions.Set(UserState.STATE_NAME, error));

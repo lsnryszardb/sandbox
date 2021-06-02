@@ -13,9 +13,9 @@ const routes: Routes = [
                 path: '',
                 component: UserListComponent,
                 pathMatch: 'full',
-                resolve: [
-                    UserListResolver
-                ]
+                resolve: {
+                    list: UserListResolver
+                }
             },
             {
                 path: 'add',
@@ -24,9 +24,9 @@ const routes: Routes = [
             {
                 path: ':userId',
                 component: UserFormComponent,
-                resolve: [
-                    UserResolver
-                ]
+                resolve: {
+                    user: UserResolver
+                }
             }
         ]
     },

@@ -12,7 +12,11 @@ export class UserService {
     }
 
     add(user: User) {
-        return this.http.post(this.baseUrl, {...user});
+        return this.http.post<User>(this.baseUrl, {...user});
+    }
+
+    edit(user: User) {
+        return this.http.put<User>(`${this.baseUrl}/${user?.id}`, {...user});
     }
 
     get(id: number) {

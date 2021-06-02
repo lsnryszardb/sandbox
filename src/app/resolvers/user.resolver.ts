@@ -8,20 +8,20 @@ import {UserActions} from '../state/user.actions';
 import {UserState} from '../state/user.state';
 
 @Injectable()
-export class UserResolver implements Resolve<User[]> {
-    @Select(UserState) users$: Observable<User[]>;
+export class UserResolver implements Resolve<User> {
+    @Select(UserState.activeUser) user$: Observable<User>;
 
     constructor(
         private store: Store
     ) {
     }
 
-    resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
+    resolve(route: ActivatedRouteSnapshot): Observable<User> {
         const userId = +route?.params?.userId;
         return this.store.dispatch(new UserActions.GetById(userId))
             .pipe(
-                withLatestFrom(this.users$),
-                map(([, users]) => users)
+                withLatestFrom(this.user$),
+                map(([, user]) => user)
             );
     }
 }
