@@ -10,13 +10,7 @@
         "streetNumber": "12",
         "flatNumber": "3"
       },
-      "contacts": [
-        {
-          "type": "EMAIL",
-          "email": "keanur@lsn.io",
-          "phone": ""
-        }
-      ]
+      "contacts": []
     }
   ],
   "config": {

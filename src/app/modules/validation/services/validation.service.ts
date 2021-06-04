@@ -4,44 +4,44 @@ import {ValidationError} from '../models/validation-error.model';
 
 @Injectable()
 export class ValidationService {
-    createStateValidator(validationErrors: ValidationErrors, field: string) {
+    createStateValidator(validationErrors: ValidationErrors, fieldPath: string) {
         return (): ValidationErrors | null => {
-            if (validationErrors?.[field]) {
-                return validationErrors[field];
+            if (validationErrors?.[fieldPath]) {
+                return validationErrors[fieldPath];
             }
             return null;
         };
     }
 
-    setControlValidators(control: AbstractControl, validationErrors: ValidationErrors, fieldName) {
+    setControlValidators(control: AbstractControl, validationErrors: ValidationErrors, fieldPath) {
         if (!control) {
             return;
         }
         control.setValidators([
-            this.createStateValidator(validationErrors, fieldName)
+            this.createStateValidator(validationErrors, fieldPath)
         ]);
         control.updateValueAndValidity({onlySelf: true});
     }
 
-    setFormGroupValidators(formGroup: FormGroup, validationErrors: ValidationErrors, fieldPrefix) {
-        if (fieldPrefix) {
-            this.setControlValidators(formGroup, validationErrors, fieldPrefix);
+    setFormGroupValidators(formGroup: FormGroup, validationErrors: ValidationErrors, fieldPath) {
+        if (fieldPath) {
+            this.setControlValidators(formGroup, validationErrors, fieldPath);
         }
         Object.keys(formGroup?.controls).forEach(controlName => {
-            const controlPath = fieldPrefix ? `${fieldPrefix}.${controlName}` : controlName;
+            const controlPath = fieldPath ? `${fieldPath}.${controlName}` : controlName;
             const control = formGroup.get(controlName);
             this.setAbstractControlValidators(control, validationErrors, controlPath);
         });
     }
 
-    setFormArrayValidators(formArray: FormArray, validationErrors: ValidationErrors, fieldPrefix) {
-        if (fieldPrefix) {
-            this.setControlValidators(formArray, validationErrors, fieldPrefix);
+    setFormArrayValidators(formArray: FormArray, validationErrors: ValidationErrors, fieldPath) {
+        if (fieldPath) {
+            this.setControlValidators(formArray, validationErrors, fieldPath);
         }
         formArray.controls.forEach((formControl, index) => {
             if (formControl instanceof FormGroup) {
                 Object.keys(formControl?.controls).forEach(controlName => {
-                    const controlPath = `${fieldPrefix}[${index}].${controlName}`;
+                    const controlPath = `${fieldPath}[${index}].${controlName}`;
                     const control = formArray.at(index).get(controlName);
                     this.setAbstractControlValidators(control, validationErrors, controlPath);
                 });
