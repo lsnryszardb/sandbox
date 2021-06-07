@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
 import {Select, Store} from '@ngxs/store';
-import {UserActions} from '../../state/user.actions';
-import {UserState} from '../../state/user.state';
+import {UserActions} from '../../../../state/user.actions';
+import {UserState} from '../../../../state/user.state';
 import {Observable} from 'rxjs';
-import {FormService} from '../../services/form.service';
-import {User} from '../../models/user.model';
+import {FormService} from '../../../shared/services/form.service';
+import {User} from '../../../../models/user.model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

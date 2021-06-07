@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DictionaryItem} from '../../models/dictionary-item.model';
+import {DictionaryItem} from '../../../../models/dictionary-item.model';
 import {CustomFormControl} from '../abstract/custom-form-control.component';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
