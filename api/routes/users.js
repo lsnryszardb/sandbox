@@ -18,8 +18,6 @@ const validateUserRequest = (req, res, next) => {
 
             }
         });
-        console.log(userData.contacts);
-        console.log(!Array.isArray(userData.contacts) || Array.isArray(userData.contacts) && !userData.contacts.length);
         if (!Array.isArray(userData.contacts) || Array.isArray(userData.contacts) && !userData.contacts.length) {
             errors.push(requiredError(`contacts`));
         } else {

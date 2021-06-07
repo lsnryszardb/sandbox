@@ -11,7 +11,6 @@ import {ValidationModule} from './modules/validation/validation.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UserState} from './state/user.state';
 import {UserService} from './services/user.service';
-import {SharedModule} from './modules/shared/shared.module';
 
 @NgModule({
     declarations: [
