@@ -4,8 +4,8 @@ import {Select, Store} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {map, withLatestFrom} from 'rxjs/operators';
 import {User} from '../../../models/user.model';
-import {UserActions} from '../../../state/user.actions';
-import {UserState} from '../../../state/user.state';
+import {UserActions} from '../../../state/user/user.actions';
+import {UserState} from '../../../state/user/user.state';
 
 @Injectable()
 export class UserResolver implements Resolve<User> {

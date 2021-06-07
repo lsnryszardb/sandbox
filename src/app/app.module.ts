@@ -9,8 +9,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ValidationModule} from './modules/validation/validation.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {UserState} from './state/user.state';
+import {UserState} from './state/user/user.state';
 import {UserService} from './services/user.service';
+import {DemoState} from './state/demo/demo.state';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import {UserService} from './services/user.service';
         BrowserAnimationsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgxsModule.forRoot([UserState], {
+        NgxsModule.forRoot([DemoState, UserState], {
             developmentMode: !environment.production
         }),
         ValidationModule.forRoot(),

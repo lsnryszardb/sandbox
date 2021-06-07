@@ -6,10 +6,10 @@ import {User} from '../../../../models/user.model';
 
 @Component({
     selector: 'app-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.scss']
+    templateUrl: './demo-list.component.html',
+    styleUrls: ['./demo-list.component.scss']
 })
-export class UserListComponent {
+export class DemoListComponent {
     @Select(UserState.users) users$: Observable<User[]>;
     displayedColumns: string[] = ['name', 'address', 'operations'];
 }

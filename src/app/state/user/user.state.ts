@@ -2,11 +2,11 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {catchError, map, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
-import {User} from '../models/user.model';
+import {User} from '../../models/user.model';
 import {UserActions} from './user.actions';
-import {UserService} from '../services/user.service';
-import {ValidationStateModel} from '../modules/validation/models/validation-state.model';
-import {ValidationActions} from '../modules/validation/state/validation.actions';
+import {UserService} from '../../services/user.service';
+import {ValidationStateModel} from '../../modules/validation/models/validation-state.model';
+import {ValidationActions} from '../../modules/validation/state/validation.actions';
 import {Router} from '@angular/router';
 
 interface UserStateModel extends ValidationStateModel {

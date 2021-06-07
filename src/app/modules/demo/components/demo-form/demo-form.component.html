@@ -1,0 +1,33 @@
+<form
+    [formGroup]="formGroup"
+    novalidate
+    autocomplete="off"
+>
+    <h3>Personal info</h3>
+    <section>
+        <mat-form-field appearance="standard">
+            <mat-label>First name</mat-label>
+            <input
+                matInput
+                [formControl]="formGroup?.get('firstName')"
+                autocomplete="off"
+            />
+            <mat-error *ngFor="let error of getErrors('firstName')">
+                {{error}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Last name</mat-label>
+            <input
+                matInput
+                [formControl]="formGroup?.get('lastName')"
+                autocomplete="off"
+            />
+            <mat-error *ngFor="let error of getErrors('lastName')">
+                {{error}}
+            </mat-error>
+        </mat-form-field>
+    </section>
+    <button mat-stroked-button color="primary" (click)="submitUser()">Submit user</button>
+    <button mat-stroked-button color="default" routerLink="/users">Cancel</button>
+</form>
