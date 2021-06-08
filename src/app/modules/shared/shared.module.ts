@@ -9,6 +9,7 @@ import {MaterialModule} from './material.module';
 import {CommonModule} from '@angular/common';
 import {FormService} from './services/form.service';
 import {ValidationModule} from '../validation/validation.module';
+import {SimpleTextInputComponent} from './components/simple-text-input/simple-text-input.component';
 
 
 const components = [
@@ -16,6 +17,7 @@ const components = [
     ContactFormComponent,
     ErrorsComponent,
     SelectComponent,
+    SimpleTextInputComponent,
     TextInputComponent,
 ];
 

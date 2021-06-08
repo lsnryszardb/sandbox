@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, ValidationErrors} from '@angular/forms';
-import {Select, Store} from '@ngxs/store';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Store} from '@ngxs/store';
 import {UserActions} from '../../../../state/user/user.actions';
-import {UserState} from '../../../../state/user/user.state';
-import {Observable} from 'rxjs';
 import {FormService} from '../../../shared/services/form.service';
 import {User} from '../../../../models/user.model';
 import {ActivatedRoute} from '@angular/router';
@@ -14,7 +12,6 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
-    @Select(UserState.validationErrors) validationErrors$: Observable<ValidationErrors>;
     formGroup: FormGroup;
     user: User;
 

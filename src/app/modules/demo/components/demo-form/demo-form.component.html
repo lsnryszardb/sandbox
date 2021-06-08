@@ -1,7 +1,5 @@
 <form
     [formGroup]="formGroup"
-    novalidate
-    autocomplete="off"
 >
     <h3>Personal info</h3>
     <section>
@@ -11,6 +9,7 @@
                 matInput
                 [formControl]="formGroup?.get('firstName')"
                 autocomplete="off"
+                [errorStateMatcher]="errorStateMatcher"
             />
             <mat-error *ngFor="let error of getErrors('firstName')">
                 {{error}}
@@ -22,6 +21,7 @@
                 matInput
                 [formControl]="formGroup?.get('lastName')"
                 autocomplete="off"
+                [errorStateMatcher]="errorStateMatcher"
             />
             <mat-error *ngFor="let error of getErrors('lastName')">
                 {{error}}
