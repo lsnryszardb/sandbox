@@ -37,7 +37,6 @@ export class DemoFormComponent implements OnDestroy {
     ) {
         this.user = this.route?.snapshot?.data?.user || null;
         this.formGroup = this.fb.group({
-            id: [''],
             firstName: [''],
             lastName: [''],
         });
